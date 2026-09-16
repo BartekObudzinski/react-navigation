@@ -54,14 +54,14 @@ export function SafeAreaProviderCompat({ children, style }: Props) {
             </View>
           );
         }
-
-        // SafeAreaProvider doesn't forward ref
-        // So we only pass onLayout to it
         return (
           <SafeAreaProvider
             initialMetrics={initialMetrics}
             style={style}
             onLayout={onLayout}
+            // @ts-expect-error: `SafeAreaProvider` doesn't forward the ref,
+            // But it spreads the props, so it works for React 19+.
+            ref={ref}
           >
             {children}
           </SafeAreaProvider>
